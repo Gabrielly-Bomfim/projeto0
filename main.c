@@ -1,5 +1,9 @@
 #include <stdio.h>
+#include "tarefas.h"
 int main(){
+  int pos =0;
+    Tarefa tarefas[TOTAL];
+  
   int opcao;
   do{
   printf("\n MENU PRINCIPAL ");
@@ -10,6 +14,15 @@ int main(){
   printf("\n Digite a opção desejada: ");
   int i = scanf("%d", &opcao);
   printf("Opção desejada: %d\n", opcao);
-  } while (opcao!=0);
-  
-}
+    if (opcao==1){
+      int erro = criarTarefa(tarefas, &pos);
+    }else if (opcao==2){
+      int erro = deletar(tarefas, &pos);
+    }else if (opcao==3){
+      int erro = listar(tarefas, pos);
+    }else if (opcao==0){
+      printf("Sair \n");
+    }else{
+        printf("opcao inválida\n");
+    }
+    }while(opcao != 0 );
