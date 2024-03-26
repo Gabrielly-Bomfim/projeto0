@@ -57,11 +57,42 @@ int listar(Tarefa tarefas[], int pos){
 }
 
 int salvar(Tarefa tarefas[], int total, int pos){
-  printf("Função de salvar tarefas\n");
+  FILE *f = fopen("tarefas", "wb"); //wb é escrever em binário
+ 
+  if(f==NULL)
+      return 1; //vendo se deu erro
+  
+  int e = fwrite(tarefas, total, sizeof(Tarefa), f);//tentando escrever no arquivo
+  if(e<=0)//não armazenou
+    return 2;
+
+  e= fwrite(&pos,1,sizeof(int),f); //erro
+  if (e<=0)
+    return 2;
+
+  e= fclose(f);
+  if(e!=0) //erro na hora de fechar o arquivo
+    return 3; 
+  
   return 0;
 }
-int carregar(Tarefa tarefas[], int total, int pos){
-  printf("Função de carregar tarefas\n");
+int carregar(Tarefa tarefas[], int total, int *pos){
+  FILE *f = fopen("tarefas", "rb"); //rb é ler 
+  if (f==NULL)
+    return 1;
+
+  int e = fread(tarefas,total,sizeof(Tarefa), f);
+  if(e <-0)
+    return 2;
+
+  e = fread(pos,1,sizeof(int),f);
+  if (e<=0)
+  return 2;
+
+  e = fclose(f);
+  if (e!=0)
+    return 3;
+  
   return 0;
 }
 
